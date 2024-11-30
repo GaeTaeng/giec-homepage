@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Menu.css'; // CSS 파일을 import 합니다.
+import './Menu_v2.css'; // CSS 파일을 import 합니다.
 
-const Menu = ({isNewMenu, setIsNewMenu}) => {
+const Menu_v2 = ({isNewMenu, setIsNewMenu}) => {
     const [activeMenu, setActiveMenu] = useState(null);
   
     const handleMouseEnter = (menu) => {
@@ -12,20 +12,18 @@ const Menu = ({isNewMenu, setIsNewMenu}) => {
     const handleMouseLeave = () => {
       setActiveMenu(null);
     };
-
-    
-  const toggleMenu = () => {
-    setIsNewMenu(prevState => !prevState); // 메뉴 상태 토글
-  };
+    const toggleMenu = () => {
+      setIsNewMenu(prevState => !prevState); // 메뉴 상태 토글
+    };
   return (
   
-    <div className="v1 top-menu">
+    <div className="v2 top-menu">
       <div className="inner1720">
         <h1 className="logo">
           <a href="/">
             <img src="http://giec.koreasme.com/img/2000-00459_logo.jpg" alt="Logo" />
           </a>
-        </h1> 
+        </h1>
         {/* 토글 버튼 추가 */}
         <button className="menu-toggle" onClick={toggleMenu}>
           {!isNewMenu ? '버젼1' : '버젼2'} {/* 상태에 따라 '열기' 또는 '닫기' 표시 */}
@@ -72,39 +70,32 @@ const Menu = ({isNewMenu, setIsNewMenu}) => {
             </li>
                 <ul className="depth2">
                     <ul className="subMenu">
-                    <li><a href="/product/#">구분값으로 넣어도되고</a></li>
-                    <li><a href="/product/#">이미지로 넣어도되고</a></li>
-                    <li><a href="/product/#">종류/타입 등 원하는 방식 변경가능</a></li>
+                    <li><NavLink to="company" className={({ isActive }) => (isActive ? 'active' : '')}>구분값으로 넣어도되고</NavLink></li>
+                    <li><NavLink to="company" className={({ isActive }) => (isActive ? 'active' : '')}>이미지로 넣어도되고</NavLink></li>
+                    <li><NavLink to="company" className={({ isActive }) => (isActive ? 'active' : '')}>종류/타입 등 원하는 방식 변경가능</NavLink></li>
                     </ul>
                     <ul className="subMenu">
-                        <li><a href="/company/#">인사말</a></li>
-                        <li><a href="/company/history">연혁</a></li>
-                        <li><a href="/company/#">목표 및 사명</a></li>
-            {/* 회사소개 메뉴 */}
-            <li
-              onMouseEnter={() => handleMouseEnter('company')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <NavLink to="company" className={({ isActive }) => (isActive ? 'active' : '')}>회사소개</NavLink>
-            </li>
+                    <li><NavLink to="company" className={({ isActive }) => (isActive ? 'active' : '')}>인사말</NavLink></li>
+                    <li><NavLink to="company/history" className={({ isActive }) => (isActive ? 'active' : '')}>연혁</NavLink></li>
+                    <li><NavLink to="company" className={({ isActive }) => (isActive ? 'active' : '')}>목표 및 사명</NavLink></li>
                         {/* <li><a href="/company/#">조직도</a></li> */}
                     </ul>
                     <ul className="subMenu">
-                        <li><a href="/product/#">컨트롤러</a></li>
-                        <li><a href="/product/#">사출성형기 콘트롤러</a></li>
-                        <li><a href="/product/#">비례밸브 콘트롤러</a></li>
-                        <li><a href="/product/#">카드</a></li>
-                        <li><a href="/product/#">RELAY 출력 카드</a></li>
-                        <li><a href="/product/#">TR 출력 카드</a></li>
-                        <li><a href="/product/#">SSR 출력카드</a></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>컨트롤러</NavLink></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>사출성형기 콘트롤러</NavLink></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>비례밸브 콘트롤러</NavLink></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>카드</NavLink></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>RELAY 출력 카드</NavLink></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>TR 출력 카드</NavLink></li>
+                        <li><NavLink to="product/#" className={({ isActive }) => (isActive ? 'active' : '')}>SSR 출력카드</NavLink></li>
                     </ul>
                     <ul className="subMenu">
-                        {/* <li><a href="/technology/#">기술현황</a></li> */}
+                        {/* <li><NavLink to="technology/#">기술현황</NavLink></li> */}
                     </ul>
                     <ul className="subMenu">
-                        <li><a href="/board/#">공지사항</a></li>
-                        <li><a href="/board/#">자유게시판</a></li>
-                        <li><a href="/board/#">Q&A</a></li>
+                        <li><NavLink to="board/#" className={({ isActive }) => (isActive ? 'active' : '')}>공지사항</NavLink></li>
+                        <li><NavLink to="board/#" className={({ isActive }) => (isActive ? 'active' : '')}>자유게시판</NavLink></li>
+                        <li><NavLink to="board/#" className={({ isActive }) => (isActive ? 'active' : '')}>Q&A</NavLink></li>
                     </ul>
                 </ul>
           </ul>
@@ -114,4 +105,4 @@ const Menu = ({isNewMenu, setIsNewMenu}) => {
   );
 };
 
-export default Menu;
+export default Menu_v2;

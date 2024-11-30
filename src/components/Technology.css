@@ -1,0 +1,21 @@
+/* Technology.css */
+
+.technology-container {
+  margin: 0 auto;
+  background-color: white;
+  }
+  
+  .technology-container img {
+    border: 0;
+    margin: 30px;
+  }
+  
+  .technology-text {
+    z-index: 3;
+    width: 609px;
+    height: 303px;
+    font-size: 9pt;
+    letter-spacing: 1.5px;
+    font-family: '굴림', sans-serif;
+  }
+  

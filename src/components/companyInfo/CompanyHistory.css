@@ -1,0 +1,84 @@
+/* CompanyHistory.css */
+
+/* 전체 섹션 스타일 */
+.company-history {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+  }
+  
+  /* 제목 스타일 */
+  .history-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  
+  .history-title::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 4px;
+    background-color: #007bff;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* 연혁 목록 스타일 */
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 각 연혁 항목 스타일 */
+  .history-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .history-item:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* 날짜 스타일 */
+  .history-date {
+    font-size: 18px;
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  /* 이벤트 설명 스타일 */
+  .history-event {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .history-title {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+  
+    .history-date {
+      font-size: 16px;
+    }
+  
+    .history-event {
+      font-size: 14px;
+    }
+  }
+  
