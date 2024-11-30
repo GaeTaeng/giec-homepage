@@ -1,0 +1,104 @@
+.top-menu {
+    background-color: #fff;
+    padding: 10px 0;
+    height: 60px;
+  }
+  
+  .top-menu .inner1720 {
+    display: flex;
+    justify-content: center; /* 메뉴 항목을 중앙에 배치 */
+    align-items: center;
+    max-width: 1720px;
+    margin: 0 auto;
+  }
+  
+  .top-menu .logo {
+    position: absolute; /* 로고를 절대 위치로 설정 */
+    left: 30px; /* 왼쪽 여백 추가 */
+  }
+  
+  .gnb {
+    display: flex;
+    list-style: none;
+    padding: 0; /* 기본 padding 제거 */
+    margin: 0;  /* 기본 margin 제거 */
+    justify-content: center; /* 메뉴 항목들을 중앙에 정렬 */
+  }
+  
+  .gnb > li {
+    position: relative; 
+    width: 200px;
+  }
+  
+  .gnb > li:last-child {
+    margin-right: 0; /* 마지막 항목의 오른쪽 여백 제거 */
+  }
+  
+  .gnb > li > a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    text-align: center; /* 텍스트 중앙 정렬 */
+  }
+  
+  .gnb > li:hover > a {
+    color: #007BFF; /* Hover effect for the main menu item */
+  }
+  .gnb:hover > .depth2,
+  .gnb > .depth2:hover
+   {
+    display: flex;
+
+  }
+  .depth2 {
+    display: none;
+    position: absolute;
+    list-style: none;
+    width: 100%;
+    top: 40px;
+    padding: 0; /* 기본 padding 제거 */
+    margin: 0;  /* 기본 margin 제거 */
+    justify-content: center; /* 메뉴 항목들을 중앙에 정렬 */
+  }
+  
+  .depth2 > ul {
+    position: relative; 
+    
+    padding: 0;
+	  list-style-type: none;
+    width: 200px;
+  }
+  
+  .depth2 > ul:last-child {
+    margin-right: 0; /* 마지막 항목의 오른쪽 여백 제거 */
+  }
+  
+  .depth2 > ul > li > a {
+    text-decoration: none;
+    color: #000;
+    padding: 10px 0;
+    display: block;
+    text-align: center; /* 텍스트 중앙 정렬 */
+  }
+  
+  .depth2 > ul > li:hover > a {
+    color: #007BFF; /* Hover effect for the main menu item */
+  }
+  
+  
+  /* 추가 애니메이션 효과 */
+  .gnb > li > a,
+  .depth2 > ul > a {
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .gnb > li:hover > a {
+    transform: scale(1.1);
+  }
+  
+  .depth2 > li:hover > a {
+    color: #007BFF;
+  }
+  
