@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/giec-homepage/index.html/static/css/main.e86face8.css",
-    "main.js": "/giec-homepage/index.html/static/js/main.dfc5e1dc.js",
-    "static/js/453.e1679e15.chunk.js": "/giec-homepage/index.html/static/js/453.e1679e15.chunk.js",
-    "index.html": "/giec-homepage/index.html/index.html",
-    "main.e86face8.css.map": "/giec-homepage/index.html/static/css/main.e86face8.css.map",
-    "main.dfc5e1dc.js.map": "/giec-homepage/index.html/static/js/main.dfc5e1dc.js.map",
-    "453.e1679e15.chunk.js.map": "/giec-homepage/index.html/static/js/453.e1679e15.chunk.js.map"
+    "main.css": "/giec-homepage/static/css/main.e86face8.css",
+    "main.js": "/giec-homepage/static/js/main.a64ad50b.js",
+    "static/js/453.e1679e15.chunk.js": "/giec-homepage/static/js/453.e1679e15.chunk.js",
+    "index.html": "/giec-homepage/index.html",
+    "main.e86face8.css.map": "/giec-homepage/static/css/main.e86face8.css.map",
+    "main.a64ad50b.js.map": "/giec-homepage/static/js/main.a64ad50b.js.map",
+    "453.e1679e15.chunk.js.map": "/giec-homepage/static/js/453.e1679e15.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e86face8.css",
-    "static/js/main.dfc5e1dc.js"
+    "static/js/main.a64ad50b.js"
   ]
 }
