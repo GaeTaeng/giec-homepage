@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/giec-homepage/static/css/main.48cd83e4.css",
-    "main.js": "/giec-homepage/static/js/main.709a66c0.js",
+    "main.js": "/giec-homepage/static/js/main.78bdb7d4.js",
     "static/js/453.e1679e15.chunk.js": "/giec-homepage/static/js/453.e1679e15.chunk.js",
     "static/media/2000-00459_cat_5_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_5_large_img1.0557aeca8f3fa0b2bad3.jpg",
     "static/media/2000-00459_cat_6_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_6_large_img1.8b4b5bdceb9aa956713b.jpg",
@@ -14,11 +14,11 @@
     "static/media/2000-00459_cat_1_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_1_large_img1.b06f633ba8397f75550a.jpg",
     "index.html": "/giec-homepage/index.html",
     "main.48cd83e4.css.map": "/giec-homepage/static/css/main.48cd83e4.css.map",
-    "main.709a66c0.js.map": "/giec-homepage/static/js/main.709a66c0.js.map",
+    "main.78bdb7d4.js.map": "/giec-homepage/static/js/main.78bdb7d4.js.map",
     "453.e1679e15.chunk.js.map": "/giec-homepage/static/js/453.e1679e15.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.48cd83e4.css",
-    "static/js/main.709a66c0.js"
+    "static/js/main.78bdb7d4.js"
   ]
 }
