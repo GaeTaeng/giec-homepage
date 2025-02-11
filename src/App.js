@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import CompanyHistory from './components/companyInfo/CompanyHistory';
 import Menu_v2 from './components/Menu_v2';
 import { useState } from 'react';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
   const [isNewMenu, setIsNewMenu] = useState(true);
@@ -22,7 +23,7 @@ const App = () => {
         )}
 
         <Routes>
-          <Route path="/" element={<CompanyInfo />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/company" element={<CompanyInfo />} />
           <Route path="/company/history" element={<CompanyHistory />} />
           <Route path="/product" element={<ProductIntroduction />} />

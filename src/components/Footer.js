@@ -2,7 +2,7 @@ import React from 'react';
 import './Footer.css'; // CSS 파일을 import 합니다.
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer className="footer">
       <table>
         <tbody>
           <tr>
@@ -16,9 +16,12 @@ const Footer = () => {
           <tr>
             <td colSpan="2">E-mail: <a href="mailto:gielec@giec.koreasme.org">gielec@giec.koreasme.org</a></td>
           </tr>
+          <tr>
+            <td colSpan="2">© 2025 GI Electronic. All rights reserved.</td>
+          </tr>
         </tbody>
       </table>
-    </div>
+    </footer>
   );
 };
 
