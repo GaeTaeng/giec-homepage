@@ -49,15 +49,6 @@
     font-weight: 600;
   }
   
-  /* 푸터 스타일 */
-  .footer {
-    text-align: center;
-    font-size: 18px;
-    color: #777;
-    font-style: italic;
-    margin-top: 30px;
-    font-weight: 500;
-  }
   
   /* 섹션의 그림자 */
   .about-us-section {
@@ -76,8 +67,5 @@
       font-size: 16px;
     }
   
-    .footer {
-      font-size: 14px;
-    }
   }
   

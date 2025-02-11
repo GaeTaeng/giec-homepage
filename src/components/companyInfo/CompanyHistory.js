@@ -18,7 +18,7 @@ const CompanyHistory = () => {
   ];
 
   return (
-    <section id="company-history" className="company-history">
+    <section id="company-history" className="company-history"  style={{paddingTop:"71.5px"}}>
       <h3 className="history-title">회사 연혁 (Company History)</h3>
       <div className="history-list">
         {historyData.map((item, index) => (

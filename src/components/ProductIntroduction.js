@@ -4,7 +4,7 @@ import { PRODUCTS } from './Constant/Products';
 const ProductIntroduction = () => {
 
   return (
-    <div className="product-container">
+    <div className="product-container"  style={{paddingTop:"71.5px"}}>
       <table className="product-table" width="95%">
         <tbody>
           {PRODUCTS.map((product) => (

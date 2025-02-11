@@ -6,7 +6,7 @@ import img3 from './img/2000-00459_tech_3_k.jpg';
 
 const Technology = () => {
   return (
-    <div className="technology-container">
+    <div className="technology-container"  style={{paddingTop:"71.5px"}}>
       {/* 이미지 1 */}
       <img
         src="/builder_images/technology_title_k.gif"

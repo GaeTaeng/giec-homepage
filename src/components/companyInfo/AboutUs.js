@@ -26,9 +26,6 @@ const AboutUs = () => {
             개선을 통해 더욱 향상된 제품을 공급하도록 노력하겠습니다.
           </p>
         </div>
-        <footer className="footer">
-          <p>GI전자 대표 김범선</p>
-        </footer>
       </div>
     </section>
   );
