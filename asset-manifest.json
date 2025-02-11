@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/giec-homepage/static/css/main.54eff72e.css",
-    "main.js": "/giec-homepage/static/js/main.a2d9bf8e.js",
+    "main.js": "/giec-homepage/static/js/main.e74e19f0.js",
     "static/js/453.e1679e15.chunk.js": "/giec-homepage/static/js/453.e1679e15.chunk.js",
     "static/media/Dashboard.png": "/giec-homepage/static/media/Dashboard.fe8f7acae155af354af6.png",
     "static/media/contact_bg.png": "/giec-homepage/static/media/contact_bg.9dd0ea3c19496009f8e3.png",
@@ -16,11 +16,11 @@
     "static/media/2000-00459_cat_1_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_1_large_img1.b06f633ba8397f75550a.jpg",
     "index.html": "/giec-homepage/index.html",
     "main.54eff72e.css.map": "/giec-homepage/static/css/main.54eff72e.css.map",
-    "main.a2d9bf8e.js.map": "/giec-homepage/static/js/main.a2d9bf8e.js.map",
+    "main.e74e19f0.js.map": "/giec-homepage/static/js/main.e74e19f0.js.map",
     "453.e1679e15.chunk.js.map": "/giec-homepage/static/js/453.e1679e15.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.54eff72e.css",
-    "static/js/main.a2d9bf8e.js"
+    "static/js/main.e74e19f0.js"
   ]
 }
