@@ -1,11 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isCompactViewport, setIsCompactViewport] = useState(false);
-  const heroRef = useRef(null);
-  const touchStartYRef = useRef(null);
-  const releaseTimerRef = useRef(null);
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -40,81 +37,6 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
     };
   }, []);
 
-  useEffect(() => {
-    if (!onScrollNext) {
-      return undefined;
-    }
-
-    const heroElement = heroRef.current;
-
-    if (!heroElement) {
-      return undefined;
-    }
-
-    const releaseScrollLock = () => {
-      window.clearTimeout(releaseTimerRef.current);
-      releaseTimerRef.current = window.setTimeout(() => {
-        releaseTimerRef.current = null;
-      }, 920);
-    };
-
-    const isHeroLeadingSection = () => {
-      const rect = heroElement.getBoundingClientRect();
-
-      return rect.top > -(window.innerHeight * 0.12) && rect.bottom > window.innerHeight * 0.6;
-    };
-
-    const requestNextSection = () => {
-      if (releaseTimerRef.current) {
-        return;
-      }
-
-      onScrollNext();
-      releaseScrollLock();
-    };
-
-    const handleWheel = (event) => {
-      if (event.deltaY < 16 || !isHeroLeadingSection()) {
-        return;
-      }
-
-      event.preventDefault();
-      requestNextSection();
-    };
-
-    const handleTouchStart = (event) => {
-      touchStartYRef.current = event.touches[0]?.clientY ?? null;
-    };
-
-    const handleTouchEnd = (event) => {
-      const touchStartY = touchStartYRef.current;
-
-      touchStartYRef.current = null;
-
-      if (touchStartY == null || !isHeroLeadingSection()) {
-        return;
-      }
-
-      const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY;
-
-      if (touchStartY - touchEndY > 56) {
-        requestNextSection();
-      }
-    };
-
-    heroElement.addEventListener('wheel', handleWheel, { passive: false });
-    heroElement.addEventListener('touchstart', handleTouchStart, { passive: true });
-    heroElement.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-    return () => {
-      heroElement.removeEventListener('wheel', handleWheel);
-      heroElement.removeEventListener('touchstart', handleTouchStart);
-      heroElement.removeEventListener('touchend', handleTouchEnd);
-      window.clearTimeout(releaseTimerRef.current);
-      releaseTimerRef.current = null;
-    };
-  }, [onScrollNext]);
-
   const activeSlide = slides[activeIndex];
   const showVisualGuide = !activeSlide.image;
   const titleLines =
@@ -125,7 +47,7 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
         : [activeSlide.title];
 
   return (
-    <section className="hero-slider" ref={heroRef}>
+    <section className="hero-slider">
       <div className="hero-slider__slides" aria-hidden="true">
         {slides.map((slide, index) => (
           <div

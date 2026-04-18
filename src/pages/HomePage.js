@@ -59,7 +59,10 @@ const slides = [
 ];
 
 const HomePage = () => {
+  const homePageRef = useRef(null);
   const productsSectionRef = useRef(null);
+  const sectionLockRef = useRef(null);
+  const touchStartYRef = useRef(null);
   const featuredProducts = featuredProductSlugs
     .map((slug) => products.find((product) => product.slug === slug))
     .filter(Boolean);
@@ -67,12 +70,145 @@ const HomePage = () => {
   useEffect(() => {
     document.documentElement.classList.add('page-home-snap');
 
+    const pageElement = homePageRef.current;
+
+    if (!pageElement) {
+      return () => {
+        document.documentElement.classList.remove('page-home-snap');
+      };
+    }
+
+    const desktopQuery = window.matchMedia('(min-width: 1024px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const getSnapSections = () => Array.from(pageElement.querySelectorAll(':scope > section'));
+
+    const releaseSectionLock = () => {
+      window.clearTimeout(sectionLockRef.current);
+      sectionLockRef.current = window.setTimeout(() => {
+        sectionLockRef.current = null;
+      }, 980);
+    };
+
+    const isSectionPagingEnabled = () => desktopQuery.matches && !reducedMotionQuery.matches;
+
+    const getCurrentSectionIndex = () => {
+      const sections = getSnapSections();
+      const anchorPoint = window.innerHeight * 0.18;
+
+      return sections.reduce(
+        (closestIndex, section, index) => {
+          const distance = Math.abs(section.getBoundingClientRect().top - anchorPoint);
+
+          if (distance < closestIndex.distance) {
+            return {
+              index,
+              distance,
+            };
+          }
+
+          return closestIndex;
+        },
+        { index: 0, distance: Number.POSITIVE_INFINITY },
+      ).index;
+    };
+
+    const scrollToSectionIndex = (index) => {
+      const sections = getSnapSections();
+      const nextSection = sections[index];
+
+      if (!nextSection) {
+        return;
+      }
+
+      nextSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      releaseSectionLock();
+    };
+
+    const scrollToAdjacentSection = (direction) => {
+      if (sectionLockRef.current) {
+        return;
+      }
+
+      const sections = getSnapSections();
+
+      if (!sections.length) {
+        return;
+      }
+
+      const currentIndex = getCurrentSectionIndex();
+      const nextIndex = Math.min(Math.max(currentIndex + direction, 0), sections.length - 1);
+
+      if (nextIndex === currentIndex) {
+        return;
+      }
+
+      scrollToSectionIndex(nextIndex);
+    };
+
+    const handleWheel = (event) => {
+      if (!isSectionPagingEnabled() || !pageElement.contains(event.target) || Math.abs(event.deltaY) < 28 || event.ctrlKey) {
+        return;
+      }
+
+      event.preventDefault();
+      scrollToAdjacentSection(event.deltaY > 0 ? 1 : -1);
+    };
+
+    const handleTouchStart = (event) => {
+      if (!isSectionPagingEnabled() || !pageElement.contains(event.target)) {
+        return;
+      }
+
+      touchStartYRef.current = event.touches[0]?.clientY ?? null;
+    };
+
+    const handleTouchEnd = (event) => {
+      if (!isSectionPagingEnabled() || !pageElement.contains(event.target)) {
+        return;
+      }
+
+      const touchStartY = touchStartYRef.current;
+
+      touchStartYRef.current = null;
+
+      if (touchStartY == null) {
+        return;
+      }
+
+      const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY;
+      const deltaY = touchStartY - touchEndY;
+
+      if (Math.abs(deltaY) < 56) {
+        return;
+      }
+
+      scrollToAdjacentSection(deltaY > 0 ? 1 : -1);
+    };
+
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
+
     return () => {
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchend', handleTouchEnd);
+      window.clearTimeout(sectionLockRef.current);
+      sectionLockRef.current = null;
+      touchStartYRef.current = null;
       document.documentElement.classList.remove('page-home-snap');
     };
   }, []);
 
   const scrollToProducts = () => {
+    window.clearTimeout(sectionLockRef.current);
+    sectionLockRef.current = window.setTimeout(() => {
+      sectionLockRef.current = null;
+    }, 980);
     productsSectionRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -80,7 +216,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="home-page">
+    <div className="home-page" ref={homePageRef}>
       <HeroSlider slides={slides} onScrollNext={scrollToProducts} nextSectionLabel="제품소개" />
 
       <section className="home-section home-section--products" id="home-products" ref={productsSectionRef}>

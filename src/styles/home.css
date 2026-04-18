@@ -4,13 +4,7 @@
 
 html.page-home-snap {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
   scroll-padding-top: var(--header-height);
-}
-
-html.page-home-snap .hero-slider,
-html.page-home-snap .home-section {
-  scroll-snap-align: start;
 }
 
 .hero-slider {
@@ -492,6 +486,28 @@ html.page-home-snap .home-section {
 
 .home-section--contact {
   padding: 0 0 140px;
+}
+
+@media (min-width: 1024px) {
+  html.page-home-snap {
+    scroll-snap-type: y mandatory;
+  }
+
+  html.page-home-snap .hero-slider,
+  html.page-home-snap .home-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .home-section {
+    display: flex;
+    align-items: center;
+    min-height: 100svh;
+  }
+
+  .home-section > .container {
+    width: 100%;
+  }
 }
 
 .contact-banner {
