@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 const HeroSlider = ({ slides }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isCompactViewport, setIsCompactViewport] = useState(false);
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -13,8 +14,37 @@ const HeroSlider = ({ slides }) => {
     };
   }, [slides.length]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 640px)');
+    const syncViewport = (event) => {
+      setIsCompactViewport(event.matches);
+    };
+
+    setIsCompactViewport(mediaQuery.matches);
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', syncViewport);
+    } else {
+      mediaQuery.addListener(syncViewport);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', syncViewport);
+      } else {
+        mediaQuery.removeListener(syncViewport);
+      }
+    };
+  }, []);
+
   const activeSlide = slides[activeIndex];
   const showVisualGuide = !activeSlide.image;
+  const titleLines =
+    isCompactViewport && activeSlide.titleLinesMobile?.length
+      ? activeSlide.titleLinesMobile
+      : activeSlide.titleLines?.length
+        ? activeSlide.titleLines
+        : [activeSlide.title];
 
   return (
     <section className="hero-slider">
@@ -33,13 +63,11 @@ const HeroSlider = ({ slides }) => {
           <div className="hero-slider__copy">
             <p className="hero-slider__eyebrow">{activeSlide.eyebrow}</p>
             <h1>
-              {activeSlide.titleLines?.length
-                ? activeSlide.titleLines.map((line) => (
-                    <span className="hero-slider__title-line" key={line}>
-                      {line}
-                    </span>
-                  ))
-                : activeSlide.title}
+              {titleLines.map((line) => (
+                <span className="hero-slider__title-line" key={line}>
+                  {line}
+                </span>
+              ))}
             </h1>
             <p className="hero-slider__description">{activeSlide.description}</p>
           </div>
