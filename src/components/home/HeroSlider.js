@@ -88,6 +88,19 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
       touchStartYRef.current = event.touches[0]?.clientY ?? null;
     };
 
+    const handleTouchMove = (event) => {
+      if (desktopQuery.matches || reducedMotionQuery.matches || !isHeroLeadViewport()) {
+        return;
+      }
+
+      const touchStartY = touchStartYRef.current;
+      const touchCurrentY = event.touches[0]?.clientY ?? touchStartY;
+
+      if (touchStartY != null && touchStartY - touchCurrentY > 14) {
+        event.preventDefault();
+      }
+    };
+
     const handleTouchEnd = (event) => {
       if (reducedMotionQuery.matches) {
         touchStartYRef.current = null;
@@ -111,11 +124,13 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
 
     heroElement.addEventListener('wheel', handleWheel, { passive: false });
     heroElement.addEventListener('touchstart', handleTouchStart, { passive: true });
+    heroElement.addEventListener('touchmove', handleTouchMove, { passive: false });
     heroElement.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       heroElement.removeEventListener('wheel', handleWheel);
       heroElement.removeEventListener('touchstart', handleTouchStart);
+      heroElement.removeEventListener('touchmove', handleTouchMove);
       heroElement.removeEventListener('touchend', handleTouchEnd);
       window.clearTimeout(releaseTimerRef.current);
       releaseTimerRef.current = null;
@@ -187,23 +202,6 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
               ))}
             </div>
             <span>{String(slides.length).padStart(2, '0')}</span>
-          </div>
-
-          <div className="hero-slider__buttons">
-            <button
-              type="button"
-              onClick={() => setActiveIndex((current) => (current - 1 + slides.length) % slides.length)}
-              aria-label="이전 슬라이드"
-            >
-              이전
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveIndex((current) => (current + 1) % slides.length)}
-              aria-label="다음 슬라이드"
-            >
-              다음
-            </button>
           </div>
         </div>
 

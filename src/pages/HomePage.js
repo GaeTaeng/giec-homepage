@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../components/common/SectionHeading';
 import ProductCard from '../components/common/ProductCard';
@@ -64,10 +64,28 @@ const HomePage = () => {
     .map((slug) => products.find((product) => product.slug === slug))
     .filter(Boolean);
 
+  useEffect(() => {
+    document.documentElement.classList.add('page-home-hero-snap');
+
+    return () => {
+      document.documentElement.classList.remove('page-home-hero-snap');
+    };
+  }, []);
+
   const scrollToProducts = () => {
-    productsSectionRef.current?.scrollIntoView({
+    const productsSection = productsSectionRef.current;
+
+    if (!productsSection) {
+      return;
+    }
+
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const headerHeight = Number.parseFloat(rootStyles.getPropertyValue('--header-height')) || 0;
+    const targetTop = window.scrollY + productsSection.getBoundingClientRect().top - headerHeight;
+
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
       behavior: 'smooth',
-      block: 'start',
     });
   };
 
