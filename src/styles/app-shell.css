@@ -348,6 +348,8 @@
   margin: 0;
   font-size: clamp(38px, 5vw, 64px);
   line-height: 1.08;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .page-hero p:last-child {
