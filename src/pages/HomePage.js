@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../components/common/SectionHeading';
 import ProductCard from '../components/common/ProductCard';
@@ -58,15 +59,31 @@ const slides = [
 ];
 
 const HomePage = () => {
+  const productsSectionRef = useRef(null);
   const featuredProducts = featuredProductSlugs
     .map((slug) => products.find((product) => product.slug === slug))
     .filter(Boolean);
 
+  useEffect(() => {
+    document.documentElement.classList.add('page-home-snap');
+
+    return () => {
+      document.documentElement.classList.remove('page-home-snap');
+    };
+  }, []);
+
+  const scrollToProducts = () => {
+    productsSectionRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+
   return (
     <div className="home-page">
-      <HeroSlider slides={slides} />
+      <HeroSlider slides={slides} onScrollNext={scrollToProducts} nextSectionLabel="제품소개" />
 
-      <section className="home-section home-section--products">
+      <section className="home-section home-section--products" id="home-products" ref={productsSectionRef}>
         <div className="container home-products">
           <div className="home-products__intro">
             <SectionHeading
