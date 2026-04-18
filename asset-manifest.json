@@ -1,8 +1,17 @@
 {
   "files": {
-    "main.css": "/giec-homepage/static/css/main.5ba79d62.css",
-    "main.js": "/giec-homepage/static/js/main.079bf4b7.js",
+    "main.css": "/giec-homepage/static/css/main.017ae36d.css",
+    "main.js": "/giec-homepage/static/js/main.9a16d2c3.js",
     "static/js/453.e1679e15.chunk.js": "/giec-homepage/static/js/453.e1679e15.chunk.js",
+    "static/media/company-location.png": "/giec-homepage/static/media/company-location.9501bb8d48d102ce31ca.png",
+    "static/media/home-control-board.png": "/giec-homepage/static/media/home-control-board.8ecddb68de5dcbc2593c.png",
+    "static/media/home-maintenance-panel.png": "/giec-homepage/static/media/home-maintenance-panel.919c2d998ce9a67ef93c.png",
+    "static/media/product-hub.png": "/giec-homepage/static/media/product-hub.37b77cea0367f0afa9ad.png",
+    "static/media/home-assembly-testing.png": "/giec-homepage/static/media/home-assembly-testing.76b451c7f102b9daf110.png",
+    "static/media/company-history.png": "/giec-homepage/static/media/company-history.44db808b47a302dd7177.png",
+    "static/media/contact-support.png": "/giec-homepage/static/media/contact-support.15284f18cf25098841cf.png",
+    "static/media/board-communication.png": "/giec-homepage/static/media/board-communication.6a53221364ea80b3df64.png",
+    "static/media/company-intro.png": "/giec-homepage/static/media/company-intro.d3d8fed3da437a00dff8.png",
     "static/media/2000-00459_cat_5_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_5_large_img1.0557aeca8f3fa0b2bad3.jpg",
     "static/media/2000-00459_cat_6_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_6_large_img1.8b4b5bdceb9aa956713b.jpg",
     "static/media/2000-00459_cat_4_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_4_large_img1.52798a8bcca34c440396.jpg",
@@ -10,12 +19,12 @@
     "static/media/2000-00459_cat_3_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_3_large_img1.e76324311718fc8cbbbc.jpg",
     "static/media/2000-00459_cat_1_large_img1.jpg": "/giec-homepage/static/media/2000-00459_cat_1_large_img1.b06f633ba8397f75550a.jpg",
     "index.html": "/giec-homepage/index.html",
-    "main.5ba79d62.css.map": "/giec-homepage/static/css/main.5ba79d62.css.map",
-    "main.079bf4b7.js.map": "/giec-homepage/static/js/main.079bf4b7.js.map",
+    "main.017ae36d.css.map": "/giec-homepage/static/css/main.017ae36d.css.map",
+    "main.9a16d2c3.js.map": "/giec-homepage/static/js/main.9a16d2c3.js.map",
     "453.e1679e15.chunk.js.map": "/giec-homepage/static/js/453.e1679e15.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5ba79d62.css",
-    "static/js/main.079bf4b7.js"
+    "static/css/main.017ae36d.css",
+    "static/js/main.9a16d2c3.js"
   ]
 }
