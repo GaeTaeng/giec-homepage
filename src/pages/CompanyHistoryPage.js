@@ -1,4 +1,5 @@
 import PageHero from '../components/layout/PageHero';
+import companyHistoryHero from '../assets/heroes/company-history.png';
 import PageTabs from '../components/layout/PageTabs';
 import { companyTimeline } from '../data/company';
 
@@ -14,6 +15,7 @@ const CompanyHistoryPage = () => (
       eyebrow="History"
       title="연혁"
       description="GI전자가 현장에서 쌓아온 기술과 고객 대응의 흐름을 정리했습니다."
+      image={companyHistoryHero}
       visualTitle="연혁 배너 이미지"
       visualDescription="연혁 페이지는 브랜드의 시간성과 신뢰를 보여주는 설비, 현장, 기업 활동 이미지가 적합합니다."
       visualItems={[

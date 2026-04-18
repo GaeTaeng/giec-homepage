@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import PageHero from '../components/layout/PageHero';
+import boardCommunicationHero from '../assets/heroes/board-communication.png';
 import PageTabs from '../components/layout/PageTabs';
 import { freeBoardPosts } from '../data/board';
 
@@ -18,6 +19,7 @@ const FreeBoardDetailPage = () => {
         eyebrow="Board"
         title="알림마당"
         description="자유게시판 상세 템플릿입니다."
+        image={boardCommunicationHero}
         visualTitle="커뮤니티 배너 이미지"
         visualDescription="자유게시판 상세도 소통/문의 계열의 차분한 업무 이미지를 쓰는 편이 적합합니다."
       />

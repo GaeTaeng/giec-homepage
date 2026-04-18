@@ -1,5 +1,6 @@
 import BoardTable from '../components/common/BoardTable';
 import PageHero from '../components/layout/PageHero';
+import boardCommunicationHero from '../assets/heroes/board-communication.png';
 import PageTabs from '../components/layout/PageTabs';
 import { noticePosts } from '../data/board';
 
@@ -14,6 +15,7 @@ const NoticeListPage = () => (
       eyebrow="Board"
       title="알림마당"
       description="공지사항과 운영 소식을 리스트 형태로 확인할 수 있습니다."
+      image={boardCommunicationHero}
       visualTitle="알림마당 배너 이미지"
       visualDescription="게시판 상단에는 공지, 커뮤니케이션, 문서, 상담 흐름을 암시하는 이미지가 적합합니다."
       visualItems={[

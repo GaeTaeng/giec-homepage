@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import PageHero from '../components/layout/PageHero';
+import boardCommunicationHero from '../assets/heroes/board-communication.png';
 import PageTabs from '../components/layout/PageTabs';
 import { noticePosts } from '../data/board';
 
@@ -18,6 +19,7 @@ const NoticeDetailPage = () => {
         eyebrow="Board"
         title="알림마당"
         description="공지사항 상세 템플릿입니다."
+        image={boardCommunicationHero}
         visualTitle="알림마당 배너 이미지"
         visualDescription="공지 상세도 리스트와 동일한 계열의 업무/문서 중심 이미지를 쓰는 편이 일관됩니다."
       />

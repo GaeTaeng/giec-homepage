@@ -1,4 +1,5 @@
 import PageHero from '../components/layout/PageHero';
+import companyLocationHero from '../assets/heroes/company-location.png';
 import PageTabs from '../components/layout/PageTabs';
 import { companyLocation } from '../data/company';
 
@@ -14,6 +15,7 @@ const CompanyLocationPage = () => (
       eyebrow="Location"
       title="오시는길"
       description="방문 상담과 현장 점검을 위해 위치와 연락처 정보를 정리했습니다."
+      image={companyLocationHero}
       visualTitle="방문 안내 배너 이미지"
       visualDescription="오시는길 페이지는 건물 외관, 주변 환경, 방문 동선을 암시하는 이미지가 적합합니다."
       visualItems={[

@@ -2,11 +2,16 @@ import { Link } from 'react-router-dom';
 import SectionHeading from '../components/common/SectionHeading';
 import ProductCard from '../components/common/ProductCard';
 import HeroSlider from '../components/home/HeroSlider';
+import contactSupportHero from '../assets/heroes/contact-support.png';
+import homeAssemblyTestingHero from '../assets/heroes/home-assembly-testing.png';
+import homeControlBoardHero from '../assets/heroes/home-control-board.png';
+import homeMaintenanceHero from '../assets/heroes/home-maintenance-panel.png';
 import { featuredProductSlugs, products } from '../data/productCatalog';
 import { noticePosts } from '../data/board';
 
 const slides = [
   {
+    image: homeControlBoardHero,
     eyebrow: 'Best Quality, Optimum Management',
     title: '적극적인 제품 향상과 유지보수로 최고의 서비스를 제공합니다',
     description: '설비 운용과 현장 대응까지 함께 고려한 산업용 전자 파트너를 지향합니다.',
@@ -19,6 +24,7 @@ const slides = [
     ],
   },
   {
+    image: homeMaintenanceHero,
     eyebrow: 'Sustainable Technology Development',
     title: '최고의 품질, 최적의 관리로 고객의 지속가능한 기술개발을 돕습니다',
     description: '현장과 유지보수 관점에서 설비 안정화를 지원하는 기술 서비스를 제공합니다.',
@@ -31,6 +37,7 @@ const slides = [
     ],
   },
   {
+    image: homeAssemblyTestingHero,
     eyebrow: 'General Industry Electronic',
     title: '고객이 신뢰하는 제품 최고의 콘트롤러 주문제작 기업',
     description: '제조 현장에 맞춘 주문형 제어장치와 부품 공급 역량을 축적해왔습니다.',
@@ -123,10 +130,10 @@ const HomePage = () => {
           <div className="contact-banner">
             <div className="contact-banner__copy">
               <p className="contact-banner__eyebrow">Contact Us</p>
-              <h2>문의 접수 이후 빠르게 검토하고 회신드릴 수 있도록 대응 흐름을 정리했습니다.</h2>
+              <h2>제품 상담부터 기술 지원까지 확인 후 최대한 빠르게 회신드리겠습니다.</h2>
               <p className="contact-banner__description">
-                현재 이 영역은 실제 사진 대신 안내형 비주얼로 운영합니다. 이미지 자산이 준비되면 상담,
-                기술지원, 현장 커뮤니케이션 계열의 컷으로 교체하면 됩니다.
+                주문 제작, 유지보수, 제품 문의 등 필요한 내용을 남겨주시면 담당자가 검토 후 순차적으로
+                연락드립니다.
               </p>
               <div className="contact-banner__actions">
                 <Link className="button-link button-link--light" to="/board/free/write">
@@ -135,18 +142,8 @@ const HomePage = () => {
               </div>
             </div>
 
-            <aside className="contact-banner__visual" aria-label="문의 배너 이미지 준비 안내">
-              <span>이미지 준비중</span>
-              <strong>문의 배너용 상담 / 기술지원 이미지</strong>
-              <p>
-                하단 CTA에는 문서나 노트북 스톡컷보다 실제 상담, 엔지니어 응대, 미팅 장면처럼 신뢰감을
-                주는 산업 현장 계열 이미지가 더 적합합니다.
-              </p>
-              <ul>
-                <li>상담 또는 미팅이 진행되는 장면</li>
-                <li>엔지니어와 설비가 함께 보이는 와이드 컷</li>
-                <li>텍스트가 겹치지 않는 비워진 여백이 있는 원본 이미지</li>
-              </ul>
+            <aside className="contact-banner__media" aria-hidden="true">
+              <img src={contactSupportHero} alt="" loading="lazy" />
             </aside>
           </div>
         </div>

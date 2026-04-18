@@ -14,6 +14,7 @@ const HeroSlider = ({ slides }) => {
   }, [slides.length]);
 
   const activeSlide = slides[activeIndex];
+  const showVisualGuide = !activeSlide.image;
 
   return (
     <section className="hero-slider">
@@ -28,23 +29,25 @@ const HeroSlider = ({ slides }) => {
       </div>
 
       <div className="container hero-slider__content">
-        <div className="hero-slider__grid">
+        <div className={`hero-slider__grid${showVisualGuide ? '' : ' hero-slider__grid--image'}`}>
           <div className="hero-slider__copy">
             <p className="hero-slider__eyebrow">{activeSlide.eyebrow}</p>
             <h1>{activeSlide.title}</h1>
             <p className="hero-slider__description">{activeSlide.description}</p>
           </div>
 
-          <aside className="hero-slider__visual" aria-label="메인 비주얼 준비 안내">
-            <span>이미지 준비중</span>
-            <strong>{activeSlide.visualTitle}</strong>
-            <p>{activeSlide.visualDescription}</p>
-            <ul>
-              {activeSlide.visualItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </aside>
+          {showVisualGuide ? (
+            <aside className="hero-slider__visual" aria-label="메인 비주얼 준비 안내">
+              <span>이미지 준비중</span>
+              <strong>{activeSlide.visualTitle}</strong>
+              <p>{activeSlide.visualDescription}</p>
+              <ul>
+                {activeSlide.visualItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </aside>
+          ) : null}
         </div>
 
         <div className="hero-slider__controls">

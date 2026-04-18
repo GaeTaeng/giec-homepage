@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PageHero from '../components/layout/PageHero';
+import productHubHero from '../assets/heroes/product-hub.png';
 import ProductCard from '../components/common/ProductCard';
 import { productFamilies, products } from '../data/productCatalog';
 
@@ -15,6 +16,7 @@ const ProductHubPage = () => {
         eyebrow="Product Information"
         title="제품소개"
         description="옛 제품소개의 기술 자산을 현대적인 탐색 구조로 재정리한 제품 허브입니다."
+        image={productHubHero}
         visualTitle="대표 제품군 배너 이미지"
         visualDescription="제품소개 상단에는 제어장치, 패널, 회로, 현장 테스트 장면처럼 제품군을 상징하는 사진이 적합합니다."
         visualItems={[

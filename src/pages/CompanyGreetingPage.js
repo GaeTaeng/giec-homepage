@@ -1,4 +1,5 @@
 import PageHero from '../components/layout/PageHero';
+import companyIntroHero from '../assets/heroes/company-intro.png';
 import PageTabs from '../components/layout/PageTabs';
 import { companyIntro } from '../data/company';
 
@@ -14,6 +15,7 @@ const CompanyGreetingPage = () => (
       eyebrow="Company"
       title="회사소개"
       description="신뢰를 기반으로 한 제어기술과 유지보수 역량을 소개합니다."
+      image={companyIntroHero}
       visualTitle="기업 소개 배너 이미지"
       visualDescription="회사소개 상단에는 기업 신뢰감을 주는 외부 전경, 설비, 작업 환경 이미지가 적합합니다."
       visualItems={[

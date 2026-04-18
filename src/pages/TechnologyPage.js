@@ -1,4 +1,5 @@
 import PageHero from '../components/layout/PageHero';
+import homeMaintenanceHero from '../assets/heroes/home-maintenance-panel.png';
 import { technologyOverview } from '../data/company';
 
 const TechnologyPage = () => (
@@ -7,6 +8,7 @@ const TechnologyPage = () => (
       eyebrow={technologyOverview.eyebrow}
       title="기술현황"
       description={technologyOverview.lead}
+      image={homeMaintenanceHero}
       visualTitle="기술현황 배너 이미지"
       visualDescription="기술현황 상단에는 패널 클리닝, 설비 점검, 제어 시스템 세팅 같은 서비스 장면이 적합합니다."
       visualItems={[

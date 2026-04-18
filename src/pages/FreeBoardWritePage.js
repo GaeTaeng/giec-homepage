@@ -1,4 +1,5 @@
 import PageHero from '../components/layout/PageHero';
+import contactSupportHero from '../assets/heroes/contact-support.png';
 import PageTabs from '../components/layout/PageTabs';
 
 const boardTabs = [
@@ -12,6 +13,7 @@ const FreeBoardWritePage = () => (
       eyebrow="Support"
       title="1:1 문의 / 자유게시판 작성"
       description="첫 슬라이스에서는 UI 템플릿 형태로 문의 작성 경험을 정리합니다."
+      image={contactSupportHero}
       visualTitle="문의 작성 배너 이미지"
       visualDescription="작성 페이지는 상담, 응대, 커뮤니케이션 장면처럼 너무 복잡하지 않은 업무 사진이 적합합니다."
     />
