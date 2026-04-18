@@ -2,17 +2,13 @@ import { Link } from 'react-router-dom';
 
 const BoardTable = ({ posts, basePath, writePath, emptyLabel }) => (
   <section className="board-shell">
-    <div className="board-shell__actions">
-      <div className="board-search" aria-hidden="true">
-        <input placeholder="검색어를 입력하세요" readOnly />
-        <button type="button">검색</button>
-      </div>
-      {writePath ? (
+    {writePath ? (
+      <div className="board-shell__actions">
         <Link className="button-link button-link--small" to={writePath}>
           글쓰기
         </Link>
-      ) : null}
-    </div>
+      </div>
+    ) : null}
 
     {posts.length ? (
       <div className="board-table">
@@ -25,10 +21,18 @@ const BoardTable = ({ posts, basePath, writePath, emptyLabel }) => (
         <div className="board-table__body">
           {posts.map((post, index) => (
             <Link className="board-table__row" key={post.id} to={`${basePath}/${post.id}`}>
-              <span>{posts.length - index}</span>
-              <span>{post.title}</span>
-              <span>{post.author}</span>
-              <span>{post.date}</span>
+              <span className="board-table__cell board-table__cell--number" data-label="번호">
+                {posts.length - index}
+              </span>
+              <span className="board-table__cell board-table__cell--title" data-label="제목">
+                {post.title}
+              </span>
+              <span className="board-table__cell" data-label="작성자">
+                {post.author}
+              </span>
+              <span className="board-table__cell" data-label="작성일">
+                {post.date}
+              </span>
             </Link>
           ))}
         </div>

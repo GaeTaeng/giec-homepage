@@ -18,7 +18,7 @@
 .board-shell__actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
 }
 
@@ -83,7 +83,7 @@
   background: rgba(22, 123, 255, 0.04);
 }
 
-.board-table__row span:nth-child(2) {
+.board-table__cell--title {
   color: var(--color-text-strong);
   font-weight: 600;
 }
@@ -174,8 +174,38 @@
     display: none;
   }
 
+  .board-shell__actions {
+    align-items: stretch;
+  }
+
   .board-table__row {
-    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 18px 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .board-table__cell {
+    display: grid;
+    gap: 4px;
+  }
+
+  .board-table__cell::before {
+    content: attr(data-label);
+    color: var(--color-text-soft);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .board-table__cell--title {
+    grid-column: 1 / -1;
+    order: -1;
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .board-table__cell--number {
+    display: none;
   }
 
   .board-detail__header,
@@ -185,5 +215,82 @@
   .board-form__actions {
     padding-left: 24px;
     padding-right: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .board-heading {
+    margin-bottom: 18px;
+  }
+
+  .board-shell {
+    gap: 16px;
+  }
+
+  .board-table {
+    border-radius: 20px;
+  }
+
+  .board-table__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .board-table__cell:not(.board-table__cell--title) {
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+  }
+
+  .board-table__cell:not(.board-table__cell--title)::before {
+    font-size: 11px;
+  }
+
+  .board-detail {
+    border-radius: 22px;
+  }
+
+  .board-detail__header {
+    padding-top: 24px;
+    padding-bottom: 22px;
+  }
+
+  .board-detail__header h2 {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+
+  .board-detail__meta {
+    gap: 10px 14px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+
+  .board-detail__content {
+    gap: 14px;
+  }
+
+  .board-detail__content p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .board-detail__header,
+  .board-detail__content,
+  .board-detail__actions,
+  .board-form,
+  .board-form__actions {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .board-form {
+    gap: 14px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    border-radius: 22px;
+  }
+
+  .board-form__actions .button-link {
+    width: 100%;
   }
 }

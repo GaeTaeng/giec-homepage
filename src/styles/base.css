@@ -159,8 +159,8 @@ button {
 @media (max-width: 960px) {
   :root {
     --header-height: 80px;
-    --section-space: 88px;
-    --section-space-sm: 64px;
+    --section-space: 72px;
+    --section-space-sm: 52px;
   }
 
   .container {
@@ -169,5 +169,29 @@ button {
 
   .section-heading__description {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: 76px;
+    --section-space: 60px;
+    --section-space-sm: 40px;
+  }
+
+  .container {
+    width: min(calc(100% - 24px), var(--container-width));
+  }
+
+  .section-heading {
+    gap: 14px;
+  }
+
+  .section-heading__eyebrow {
+    font-size: 13px;
+  }
+
+  .section-heading__title {
+    font-size: clamp(28px, 8vw, 38px);
   }
 }
