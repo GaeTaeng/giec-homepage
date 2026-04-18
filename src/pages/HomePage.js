@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../components/common/SectionHeading';
 import ProductCard from '../components/common/ProductCard';
@@ -59,156 +59,12 @@ const slides = [
 ];
 
 const HomePage = () => {
-  const homePageRef = useRef(null);
   const productsSectionRef = useRef(null);
-  const sectionLockRef = useRef(null);
-  const touchStartYRef = useRef(null);
   const featuredProducts = featuredProductSlugs
     .map((slug) => products.find((product) => product.slug === slug))
     .filter(Boolean);
 
-  useEffect(() => {
-    document.documentElement.classList.add('page-home-snap');
-
-    const pageElement = homePageRef.current;
-
-    if (!pageElement) {
-      return () => {
-        document.documentElement.classList.remove('page-home-snap');
-      };
-    }
-
-    const desktopQuery = window.matchMedia('(min-width: 1024px)');
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    const getSnapSections = () => Array.from(pageElement.querySelectorAll(':scope > section'));
-
-    const releaseSectionLock = () => {
-      window.clearTimeout(sectionLockRef.current);
-      sectionLockRef.current = window.setTimeout(() => {
-        sectionLockRef.current = null;
-      }, 980);
-    };
-
-    const isSectionPagingEnabled = () => desktopQuery.matches && !reducedMotionQuery.matches;
-
-    const getCurrentSectionIndex = () => {
-      const sections = getSnapSections();
-      const anchorPoint = window.innerHeight * 0.18;
-
-      return sections.reduce(
-        (closestIndex, section, index) => {
-          const distance = Math.abs(section.getBoundingClientRect().top - anchorPoint);
-
-          if (distance < closestIndex.distance) {
-            return {
-              index,
-              distance,
-            };
-          }
-
-          return closestIndex;
-        },
-        { index: 0, distance: Number.POSITIVE_INFINITY },
-      ).index;
-    };
-
-    const scrollToSectionIndex = (index) => {
-      const sections = getSnapSections();
-      const nextSection = sections[index];
-
-      if (!nextSection) {
-        return;
-      }
-
-      nextSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-      releaseSectionLock();
-    };
-
-    const scrollToAdjacentSection = (direction) => {
-      if (sectionLockRef.current) {
-        return;
-      }
-
-      const sections = getSnapSections();
-
-      if (!sections.length) {
-        return;
-      }
-
-      const currentIndex = getCurrentSectionIndex();
-      const nextIndex = Math.min(Math.max(currentIndex + direction, 0), sections.length - 1);
-
-      if (nextIndex === currentIndex) {
-        return;
-      }
-
-      scrollToSectionIndex(nextIndex);
-    };
-
-    const handleWheel = (event) => {
-      if (!isSectionPagingEnabled() || !pageElement.contains(event.target) || Math.abs(event.deltaY) < 28 || event.ctrlKey) {
-        return;
-      }
-
-      event.preventDefault();
-      scrollToAdjacentSection(event.deltaY > 0 ? 1 : -1);
-    };
-
-    const handleTouchStart = (event) => {
-      if (!isSectionPagingEnabled() || !pageElement.contains(event.target)) {
-        return;
-      }
-
-      touchStartYRef.current = event.touches[0]?.clientY ?? null;
-    };
-
-    const handleTouchEnd = (event) => {
-      if (!isSectionPagingEnabled() || !pageElement.contains(event.target)) {
-        return;
-      }
-
-      const touchStartY = touchStartYRef.current;
-
-      touchStartYRef.current = null;
-
-      if (touchStartY == null) {
-        return;
-      }
-
-      const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY;
-      const deltaY = touchStartY - touchEndY;
-
-      if (Math.abs(deltaY) < 56) {
-        return;
-      }
-
-      scrollToAdjacentSection(deltaY > 0 ? 1 : -1);
-    };
-
-    document.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('touchstart', handleTouchStart, { passive: true });
-    document.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-    return () => {
-      document.removeEventListener('wheel', handleWheel);
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchend', handleTouchEnd);
-      window.clearTimeout(sectionLockRef.current);
-      sectionLockRef.current = null;
-      touchStartYRef.current = null;
-      document.documentElement.classList.remove('page-home-snap');
-    };
-  }, []);
-
   const scrollToProducts = () => {
-    window.clearTimeout(sectionLockRef.current);
-    sectionLockRef.current = window.setTimeout(() => {
-      sectionLockRef.current = null;
-    }, 980);
     productsSectionRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -216,97 +72,99 @@ const HomePage = () => {
   };
 
   return (
-    <div className="home-page" ref={homePageRef}>
+    <div className="home-page">
       <HeroSlider slides={slides} onScrollNext={scrollToProducts} nextSectionLabel="제품소개" />
 
-      <section className="home-section home-section--products" id="home-products" ref={productsSectionRef}>
-        <div className="container home-products">
-          <div className="home-products__intro">
-            <SectionHeading
-              eyebrow="제품소개"
-              title="Our Product"
-              description="GI전자는 고객에게 최고의 품질과 기술력으로 최적의 상품을 제공합니다."
-            />
-            <p className="home-products__copy">
-              옛 제품소개의 기술 자산은 유지하되, 새로운 페이지에서는 제품군 탐색과 상세 진입이 더 쉽도록
-              재구성합니다.
-            </p>
-            <Link className="button-link" to="/product">
-              제품 더 보기
-            </Link>
-          </div>
-          <div className="home-products__grid">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="home-section home-section--lookup">
-        <div className="container lookup-banner">
-          <div>
-            <p className="lookup-banner__eyebrow">빠른 제품 진입</p>
-            <h2>원하는 제품을 빠르게 탐색해보세요.</h2>
-            <div className="lookup-banner__chips">
-              <span># 컨트롤러</span>
-              <span># 비례밸브</span>
-              <span># 출력카드</span>
-              <span># 주문제작</span>
+      <div className="home-flow">
+        <section className="home-section home-section--products" id="home-products" ref={productsSectionRef}>
+          <div className="container home-products">
+            <div className="home-products__intro">
+              <SectionHeading
+                eyebrow="제품소개"
+                title="Our Product"
+                description="GI전자는 고객에게 최고의 품질과 기술력으로 최적의 상품을 제공합니다."
+              />
+              <p className="home-products__copy">
+                옛 제품소개의 기술 자산은 유지하되, 새로운 페이지에서는 제품군 탐색과 상세 진입이 더 쉽도록
+                재구성합니다.
+              </p>
+              <Link className="button-link" to="/product">
+                제품 더 보기
+              </Link>
+            </div>
+            <div className="home-products__grid">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.slug} product={product} />
+              ))}
             </div>
           </div>
-          <Link className="button-link button-link--light" to="/product">
-            제품 허브로 이동
-          </Link>
-        </div>
-      </section>
+        </section>
 
-      <section className="home-section home-section--news">
-        <div className="container news-preview">
-          <SectionHeading eyebrow="뉴스레터" title="News" description="GI전자의 주요 소식을 확인하세요." />
-          <div className="news-preview__list">
-            {noticePosts.map((post) => (
-              <article className="news-preview__item" key={post.id}>
-                <div className="news-preview__date">
-                  <strong>{post.date.split('.').slice(2).join('') || post.date}</strong>
-                  <span>{post.date}</span>
-                </div>
-                <div className="news-preview__body">
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                </div>
-                <Link className="button-link button-link--ghost" to={`/board/notice/${post.id}`}>
-                  보기
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="home-section home-section--contact">
-        <div className="container">
-          <div className="contact-banner">
-            <div className="contact-banner__copy">
-              <p className="contact-banner__eyebrow">Contact Us</p>
-              <h2>제품 상담부터 기술 지원까지 확인 후 최대한 빠르게 회신드리겠습니다.</h2>
-              <p className="contact-banner__description">
-                주문 제작, 유지보수, 제품 문의 등 필요한 내용을 남겨주시면 담당자가 검토 후 순차적으로
-                연락드립니다.
-              </p>
-              <div className="contact-banner__actions">
-                <Link className="button-link button-link--light" to="/board/free/write">
-                  문의하기
-                </Link>
+        <section className="home-section home-section--lookup">
+          <div className="container lookup-banner">
+            <div>
+              <p className="lookup-banner__eyebrow">빠른 제품 진입</p>
+              <h2>원하는 제품을 빠르게 탐색해보세요.</h2>
+              <div className="lookup-banner__chips">
+                <span># 컨트롤러</span>
+                <span># 비례밸브</span>
+                <span># 출력카드</span>
+                <span># 주문제작</span>
               </div>
             </div>
-
-            <aside className="contact-banner__media" aria-hidden="true">
-              <img src={contactSupportHero} alt="" loading="lazy" />
-            </aside>
+            <Link className="button-link button-link--light" to="/product">
+              제품 허브로 이동
+            </Link>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="home-section home-section--news">
+          <div className="container news-preview">
+            <SectionHeading eyebrow="뉴스레터" title="News" description="GI전자의 주요 소식을 확인하세요." />
+            <div className="news-preview__list">
+              {noticePosts.map((post) => (
+                <article className="news-preview__item" key={post.id}>
+                  <div className="news-preview__date">
+                    <strong>{post.date.split('.').slice(2).join('') || post.date}</strong>
+                    <span>{post.date}</span>
+                  </div>
+                  <div className="news-preview__body">
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+                  </div>
+                  <Link className="button-link button-link--ghost" to={`/board/notice/${post.id}`}>
+                    보기
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="home-section home-section--contact">
+          <div className="container">
+            <div className="contact-banner">
+              <div className="contact-banner__copy">
+                <p className="contact-banner__eyebrow">Contact Us</p>
+                <h2>제품 상담부터 기술 지원까지 확인 후 최대한 빠르게 회신드리겠습니다.</h2>
+                <p className="contact-banner__description">
+                  주문 제작, 유지보수, 제품 문의 등 필요한 내용을 남겨주시면 담당자가 검토 후 순차적으로
+                  연락드립니다.
+                </p>
+                <div className="contact-banner__actions">
+                  <Link className="button-link button-link--light" to="/board/free/write">
+                    문의하기
+                  </Link>
+                </div>
+              </div>
+
+              <aside className="contact-banner__media" aria-hidden="true">
+                <img src={contactSupportHero} alt="" loading="lazy" />
+              </aside>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

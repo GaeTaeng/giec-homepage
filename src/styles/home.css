@@ -2,9 +2,16 @@
   background: var(--color-bg-light);
 }
 
-html.page-home-snap {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height);
+.home-flow {
+  position: relative;
+  z-index: 1;
+  margin-top: -34px;
+  padding-top: 34px;
+  border-radius: 40px 40px 0 0;
+  background:
+    linear-gradient(180deg, rgba(245, 247, 251, 0.84) 0%, #ffffff 180px),
+    var(--color-bg-light);
+  box-shadow: 0 -18px 48px rgba(8, 12, 19, 0.12);
 }
 
 .hero-slider {
@@ -287,8 +294,12 @@ html.page-home-snap {
   }
 }
 
+.home-section {
+  scroll-margin-top: calc(var(--header-height) + 12px);
+}
+
 .home-section--products {
-  padding: 100px 0 120px;
+  padding: 88px 0 120px;
 }
 
 .home-products {
@@ -488,28 +499,6 @@ html.page-home-snap {
   padding: 0 0 140px;
 }
 
-@media (min-width: 1024px) {
-  html.page-home-snap {
-    scroll-snap-type: y mandatory;
-  }
-
-  html.page-home-snap .hero-slider,
-  html.page-home-snap .home-section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
-
-  .home-section {
-    display: flex;
-    align-items: center;
-    min-height: 100svh;
-  }
-
-  .home-section > .container {
-    width: 100%;
-  }
-}
-
 .contact-banner {
   position: relative;
   display: grid;
@@ -583,6 +572,12 @@ html.page-home-snap {
 }
 
 @media (max-width: 960px) {
+  .home-flow {
+    margin-top: -24px;
+    padding-top: 24px;
+    border-radius: 28px 28px 0 0;
+  }
+
   .hero-slider {
     min-height: 88svh;
   }
@@ -655,6 +650,13 @@ html.page-home-snap {
 }
 
 @media (max-width: 640px) {
+  .home-flow {
+    margin-top: -18px;
+    padding-top: 18px;
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -10px 30px rgba(8, 12, 19, 0.08);
+  }
+
   .hero-slider {
     min-height: 82svh;
   }
@@ -747,7 +749,7 @@ html.page-home-snap {
   }
 
   .home-section--products {
-    padding: 72px 0 88px;
+    padding: 64px 0 88px;
   }
 
   .home-products {
