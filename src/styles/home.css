@@ -64,9 +64,13 @@
   max-width: 920px;
   margin: 0 0 22px;
   font-size: clamp(46px, 5.4vw, 84px);
-  line-height: 1.08;
+  line-height: 1.14;
   word-break: keep-all;
   overflow-wrap: anywhere;
+}
+
+.hero-slider__title-line {
+  display: block;
 }
 
 .hero-slider__description {
@@ -525,6 +529,7 @@
   .hero-slider h1 {
     margin-bottom: 16px;
     font-size: clamp(30px, 9vw, 40px);
+    line-height: 1.18;
   }
 
   .hero-slider__description {

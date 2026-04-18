@@ -32,7 +32,15 @@ const HeroSlider = ({ slides }) => {
         <div className={`hero-slider__grid${showVisualGuide ? '' : ' hero-slider__grid--image'}`}>
           <div className="hero-slider__copy">
             <p className="hero-slider__eyebrow">{activeSlide.eyebrow}</p>
-            <h1>{activeSlide.title}</h1>
+            <h1>
+              {activeSlide.titleLines?.length
+                ? activeSlide.titleLines.map((line) => (
+                    <span className="hero-slider__title-line" key={line}>
+                      {line}
+                    </span>
+                  ))
+                : activeSlide.title}
+            </h1>
             <p className="hero-slider__description">{activeSlide.description}</p>
           </div>
 
