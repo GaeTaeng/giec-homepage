@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../components/common/SectionHeading';
 import ProductCard from '../components/common/ProductCard';
@@ -59,29 +59,22 @@ const slides = [
 ];
 
 const HomePage = () => {
+  const homeFlowRef = useRef(null);
   const productsSectionRef = useRef(null);
   const featuredProducts = featuredProductSlugs
     .map((slug) => products.find((product) => product.slug === slug))
     .filter(Boolean);
 
-  useEffect(() => {
-    document.documentElement.classList.add('page-home-hero-snap');
+  const scrollToHomeFlow = () => {
+    const homeFlow = homeFlowRef.current;
 
-    return () => {
-      document.documentElement.classList.remove('page-home-hero-snap');
-    };
-  }, []);
-
-  const scrollToProducts = () => {
-    const productsSection = productsSectionRef.current;
-
-    if (!productsSection) {
+    if (!homeFlow) {
       return;
     }
 
     const rootStyles = window.getComputedStyle(document.documentElement);
     const headerHeight = Number.parseFloat(rootStyles.getPropertyValue('--header-height')) || 0;
-    const targetTop = window.scrollY + productsSection.getBoundingClientRect().top - headerHeight;
+    const targetTop = window.scrollY + homeFlow.getBoundingClientRect().top - headerHeight + 8;
 
     window.scrollTo({
       top: Math.max(targetTop, 0),
@@ -91,9 +84,9 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <HeroSlider slides={slides} onScrollNext={scrollToProducts} nextSectionLabel="제품소개" />
+      <HeroSlider slides={slides} onScrollNext={scrollToHomeFlow} nextSectionLabel="메인 콘텐츠" />
 
-      <div className="home-flow">
+      <section className="home-flow" ref={homeFlowRef}>
         <section className="home-section home-section--products" id="home-products" ref={productsSectionRef}>
           <div className="container home-products">
             <div className="home-products__intro">
@@ -182,7 +175,7 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-      </div>
+      </section>
     </div>
   );
 };
