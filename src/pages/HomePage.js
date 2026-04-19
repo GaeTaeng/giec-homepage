@@ -80,13 +80,17 @@ const HomePage = () => {
       top: Math.max(targetTop, 0),
       behavior: 'smooth',
     });
+
+    window.requestAnimationFrame(() => {
+      homeFlow.focus({ preventScroll: true });
+    });
   };
 
   return (
     <div className="home-page">
       <HeroSlider slides={slides} onScrollNext={scrollToHomeFlow} nextSectionLabel="메인 콘텐츠" />
 
-      <section className="home-flow" ref={homeFlowRef}>
+      <section className="home-flow" ref={homeFlowRef} tabIndex={-1}>
         <section className="home-section home-section--products" id="home-products" ref={productsSectionRef}>
           <div className="container home-products">
             <div className="home-products__intro">
