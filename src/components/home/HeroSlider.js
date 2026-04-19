@@ -61,26 +61,29 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
 
     const requestNextSection = () => {
       if (releaseTimerRef.current || !isHeroLeadViewport()) {
-        return;
+        return false;
       }
 
       onScrollNext();
       window.clearTimeout(releaseTimerRef.current);
       releaseTimerRef.current = window.setTimeout(() => {
         releaseTimerRef.current = null;
-      }, 900);
+      }, 700);
+
+      return true;
     };
 
     const handleWheel = (event) => {
-      if (!desktopQuery.matches || reducedMotionQuery.matches || event.deltaY < 30) {
+      if (!desktopQuery.matches || reducedMotionQuery.matches) {
         return;
       }
 
-      if (!isHeroLeadViewport()) {
+      if (!isHeroLeadViewport() || event.deltaY <= 0) {
         return;
       }
 
       event.preventDefault();
+      event.stopPropagation();
       requestNextSection();
     };
 
@@ -96,8 +99,9 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
       const touchStartY = touchStartYRef.current;
       const touchCurrentY = event.touches[0]?.clientY ?? touchStartY;
 
-      if (touchStartY != null && touchStartY - touchCurrentY > 14) {
+      if (touchStartY != null && touchStartY - touchCurrentY > 6) {
         event.preventDefault();
+        requestNextSection();
       }
     };
 
@@ -117,21 +121,21 @@ const HeroSlider = ({ slides, onScrollNext, nextSectionLabel = '다음 섹션' }
 
       const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY;
 
-      if (touchStartY - touchEndY > 72) {
+      if (touchStartY - touchEndY > 12) {
         requestNextSection();
       }
     };
 
-    heroElement.addEventListener('wheel', handleWheel, { passive: false });
-    heroElement.addEventListener('touchstart', handleTouchStart, { passive: true });
-    heroElement.addEventListener('touchmove', handleTouchMove, { passive: false });
-    heroElement.addEventListener('touchend', handleTouchEnd, { passive: true });
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
-      heroElement.removeEventListener('wheel', handleWheel);
-      heroElement.removeEventListener('touchstart', handleTouchStart);
-      heroElement.removeEventListener('touchmove', handleTouchMove);
-      heroElement.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
       window.clearTimeout(releaseTimerRef.current);
       releaseTimerRef.current = null;
       touchStartYRef.current = null;

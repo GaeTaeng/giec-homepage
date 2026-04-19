@@ -19,6 +19,7 @@
   color: var(--color-text-inverse);
   overscroll-behavior-y: contain;
   overflow: clip;
+  touch-action: pan-x;
 }
 
 .hero-slider__slides,

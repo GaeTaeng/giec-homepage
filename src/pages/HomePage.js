@@ -78,7 +78,7 @@ const HomePage = () => {
 
     window.scrollTo({
       top: Math.max(targetTop, 0),
-      behavior: 'smooth',
+      behavior: 'auto',
     });
 
     window.requestAnimationFrame(() => {
