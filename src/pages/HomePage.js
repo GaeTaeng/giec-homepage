@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../components/common/SectionHeading';
 import ProductCard from '../components/common/ProductCard';
@@ -59,18 +59,30 @@ const slides = [
 ];
 
 const HomePage = () => {
+  const homePageRef = useRef(null);
   const homeFlowRef = useRef(null);
+  const transitionLockRef = useRef(null);
+  const touchStartYRef = useRef(null);
   const productsSectionRef = useRef(null);
   const featuredProducts = featuredProductSlugs
     .map((slug) => products.find((product) => product.slug === slug))
     .filter(Boolean);
 
+  const releaseTransitionLock = () => {
+    window.clearTimeout(transitionLockRef.current);
+    transitionLockRef.current = window.setTimeout(() => {
+      transitionLockRef.current = null;
+    }, 700);
+  };
+
   const scrollToHomeFlow = () => {
     const homeFlow = homeFlowRef.current;
 
-    if (!homeFlow) {
-      return;
+    if (!homeFlow || transitionLockRef.current) {
+      return false;
     }
+
+    releaseTransitionLock();
 
     const rootStyles = window.getComputedStyle(document.documentElement);
     const headerHeight = Number.parseFloat(rootStyles.getPropertyValue('--header-height')) || 0;
@@ -84,10 +96,111 @@ const HomePage = () => {
     window.requestAnimationFrame(() => {
       homeFlow.focus({ preventScroll: true });
     });
+
+    return true;
   };
 
+  useEffect(() => {
+    const getHeaderHeight = () => {
+      const rootStyles = window.getComputedStyle(document.documentElement);
+
+      return Number.parseFloat(rootStyles.getPropertyValue('--header-height')) || 0;
+    };
+
+    const isHomeFlowLeadViewport = () => {
+      const homeFlow = homeFlowRef.current;
+
+      if (!homeFlow) {
+        return false;
+      }
+
+      const expectedTop = getHeaderHeight() - 8;
+      const top = homeFlow.getBoundingClientRect().top;
+
+      return Math.abs(top - expectedTop) <= 32;
+    };
+
+    const scrollToHero = () => {
+      if (transitionLockRef.current || !isHomeFlowLeadViewport()) {
+        return false;
+      }
+
+      releaseTransitionLock();
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto',
+      });
+
+      window.requestAnimationFrame(() => {
+        homePageRef.current?.focus({ preventScroll: true });
+      });
+
+      return true;
+    };
+
+    const handleWheel = (event) => {
+      if (event.deltaY >= 0 || !isHomeFlowLeadViewport()) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      scrollToHero();
+    };
+
+    const handleTouchStart = (event) => {
+      touchStartYRef.current = event.touches[0]?.clientY ?? null;
+    };
+
+    const handleTouchMove = (event) => {
+      if (!isHomeFlowLeadViewport()) {
+        return;
+      }
+
+      const touchStartY = touchStartYRef.current;
+      const touchCurrentY = event.touches[0]?.clientY ?? touchStartY;
+
+      if (touchStartY != null && touchCurrentY - touchStartY > 6) {
+        event.preventDefault();
+        scrollToHero();
+      }
+    };
+
+    const handleTouchEnd = (event) => {
+      const touchStartY = touchStartYRef.current;
+
+      touchStartYRef.current = null;
+
+      if (touchStartY == null || !isHomeFlowLeadViewport()) {
+        return;
+      }
+
+      const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY;
+
+      if (touchEndY - touchStartY > 12) {
+        scrollToHero();
+      }
+    };
+
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+      window.clearTimeout(transitionLockRef.current);
+      transitionLockRef.current = null;
+      touchStartYRef.current = null;
+    };
+  }, []);
+
   return (
-    <div className="home-page">
+    <div className="home-page" ref={homePageRef} tabIndex={-1}>
       <HeroSlider slides={slides} onScrollNext={scrollToHomeFlow} nextSectionLabel="메인 콘텐츠" />
 
       <section className="home-flow" ref={homeFlowRef} tabIndex={-1}>
